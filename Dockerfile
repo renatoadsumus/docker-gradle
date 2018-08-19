@@ -6,14 +6,9 @@ RUN apt-get install git -y \
     && git clone https://github.com/spring-guides/gs-spring-boot.git \
     && ./gs-spring-boot/initial/gradlew
 
-RUN mkdir /opt/codigo_da_aplicacao
+WORKDIR codigo_da_aplicacao
 
-COPY run_sonar.sh /opt/codigo_da_aplicacao/run_sonar.sh
-
-RUN chmod +x /opt/codigo_da_aplicacao/run_sonar.sh
-
-WORKDIR /opt/codigo_da_aplicacao
-
-#CMD ["/codigo_da_aplicacao/run_sonar.sh"]
-
-CMD ["gradlew", "build","run_sonar.sh"]
+CMD gradlew build && gradlew sonarqube \
+  -Dsonar.organization=renatoadsumus-github \
+  -Dsonar.host.url=https://sonarcloud.io \
+  -Dsonar.login=4c14dff26c13dacf1fcfa88911b2f28bdafb0bca

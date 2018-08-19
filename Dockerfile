@@ -12,6 +12,10 @@ RUN chmod +x /opt/run_sonar.sh
 
 WORKDIR codigo_da_aplicacao
 
-#CMD ["/opt/run_sonar.sh"]
+COPY run_sonar.sh /opt/run_sonar.sh
+COPY run_sonar /codigo_da_aplicacao/run_sonar.sh
 
-CMD ["gradlew", "build","/opt/run_sonar.sh"]
+
+#CMD ["/codigo_da_aplicacao/run_sonar.sh"]
+
+CMD ["gradlew", "build","/codigo_da_aplicacao/run_sonar.sh"]
